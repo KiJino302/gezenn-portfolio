@@ -1,0 +1,2 @@
+# gezenn-portfolio
+Portofolio Gezenn
