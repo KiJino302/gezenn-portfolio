@@ -3,154 +3,336 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Gezenn — Video Editor Portfolio</title>
+<title>Gezenn: Video Editor Portfolio</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Instrument+Serif:ital@0;1&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
+<!-- Top Scroll Progress Indicator -->
+<div id="scrollProgress" class="scroll-progress" aria-hidden="true"></div>
+
+<!-- PUBLIC VIEW -->
 <div id="publicView" class="view active">
-  <nav class="nav" id="nav">
-    <div class="nav-inner">
-      <a href="#" class="logo" onclick="window.scrollTo(0,0);return false"><span class="logo-dot"></span><span id="navLogo">Gezenn</span></a>
-      <ul class="nav-links">
-        <li><a href="#home">Home</a></li>
-        <li><a href="#works">Works</a></li>
-        <li><a href="#about">About</a></li>
-        <li><a href="#contact">Contact</a></li>
+  <!-- Adeola-inspired Floating Pill Navigation -->
+  <header class="nav-container" id="navContainer">
+    <nav class="nav-pill" id="nav" aria-label="Main Navigation">
+      <a href="#home" class="brand-logo" onclick="smoothScrollTo('#home', event)" aria-label="Home">
+        <span class="brand-dot" aria-hidden="true"></span>
+        <span id="navLogo" class="brand-text">Gezenn</span>
+      </a>
+
+      <ul class="nav-links" id="desktopNavLinks">
+        <li><a href="#home" class="nav-link active" data-section="home" onclick="smoothScrollTo('#home', event)">Home</a></li>
+        <li><a href="#works" class="nav-link" data-section="works" onclick="smoothScrollTo('#works', event)">Works</a></li>
+        <li><a href="#about" class="nav-link" data-section="about" onclick="smoothScrollTo('#about', event)">About</a></li>
+        <li><a href="#services" class="nav-link" data-section="services" onclick="smoothScrollTo('#services', event)">Services</a></li>
+        <li><a href="#contact" class="nav-link" data-section="contact" onclick="smoothScrollTo('#contact', event)">Contact</a></li>
       </ul>
-      <div style="display:flex;gap:10px;align-items:center">
-        <a href="#contact" class="nav-cta">Contact Me</a>
-        <button class="mobile-toggle" onclick="toggleMobileMenu()"><svg viewBox="0 0 24 24"><path d="M3 6h18M3 12h18M3 18h18" stroke-linecap="round"/></svg></button>
+
+      <div class="nav-actions">
+        <a href="#contact" class="nav-cta-btn" onclick="smoothScrollTo('#contact', event)">
+          <span>Let's Talk</span>
+          <svg viewBox="0 0 24 24" aria-hidden="true" width="14" height="14"><path d="M5 12h14M13 5l7 7-7 7" stroke="currentColor" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+        <button class="menu-toggle-btn" id="menuToggleBtn" onclick="toggleMenu()" aria-label="Toggle Navigation Menu" aria-expanded="false" aria-controls="cinematicMenu">
+          <span class="menu-toggle-label" id="menuToggleLabel">MENU</span>
+          <span class="hamburger-box" aria-hidden="true">
+            <span class="hamburger-line line-1"></span>
+            <span class="hamburger-line line-2"></span>
+          </span>
+        </button>
+      </div>
+    </nav>
+  </header>
+
+  <!-- Adeola-inspired Cinematic Fullscreen Menu Overlay -->
+  <div class="cinematic-menu" id="cinematicMenu" aria-hidden="true">
+    <div class="cinematic-menu-inner">
+      <div class="menu-top-bar">
+        <span class="menu-eyebrow">NAVIGATION</span>
+        <span class="menu-status-badge"><span class="badge-dot"></span>AVAILABLE FOR WORK</span>
+      </div>
+
+      <div class="menu-content-grid">
+        <div class="menu-left-col">
+          <div class="menu-sub-block">
+            <h4 class="menu-sub-title">DON'T BE A STRANGER</h4>
+            <div class="menu-social-links" id="menuSocialLinks">
+              <!-- Dynamically populated or fallback -->
+              <a href="https://wa.me/6281234567890" target="_blank" rel="noopener" class="menu-social-item">WhatsApp</a>
+              <a href="https://instagram.com/gezenn.studio" target="_blank" rel="noopener" class="menu-social-item">Instagram</a>
+              <a href="mailto:hello@gezenn.studio" class="menu-social-item">Email</a>
+              <a href="https://tiktok.com/@gezenn.studio" target="_blank" rel="noopener" class="menu-social-item">TikTok</a>
+            </div>
+          </div>
+          <div class="menu-sub-block" style="margin-top: 32px;">
+            <h4 class="menu-sub-title">BASE LOCATION</h4>
+            <p class="menu-location-text">Indonesia / Available Worldwide</p>
+          </div>
+        </div>
+
+        <div class="menu-right-col">
+          <ul class="menu-nav-list">
+            <li><a href="#home" class="menu-nav-link" onclick="handleMenuNav('#home', event)"><span class="menu-nav-num">01</span><span class="menu-nav-text">Home</span></a></li>
+            <li><a href="#works" class="menu-nav-link" onclick="handleMenuNav('#works', event)"><span class="menu-nav-num">02</span><span class="menu-nav-text">Works</span></a></li>
+            <li><a href="#about" class="menu-nav-link" onclick="handleMenuNav('#about', event)"><span class="menu-nav-num">03</span><span class="menu-nav-text">About</span></a></li>
+            <li><a href="#services" class="menu-nav-link" onclick="handleMenuNav('#services', event)"><span class="menu-nav-num">04</span><span class="menu-nav-text">Services</span></a></li>
+            <li><a href="#contact" class="menu-nav-link" onclick="handleMenuNav('#contact', event)"><span class="menu-nav-num">05</span><span class="menu-nav-text">Contact</span></a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="menu-footer">
+        <div class="menu-footer-left">
+          <span>HAVE A STORY TO TELL?</span>
+          <a href="#contact" class="menu-talk-link" onclick="handleMenuNav('#contact', event)">Let's collaborate</a>
+        </div>
+        <div class="menu-footer-right">
+          <a href="#gezenn-admin" class="menu-admin-link" onclick="closeMenu()">Admin Access</a>
+        </div>
       </div>
     </div>
-  </nav>
-  <div class="mobile-menu" id="mobileMenu">
-    <a href="#home" onclick="closeMobileMenu()">Home</a>
-    <a href="#works" onclick="closeMobileMenu()">Works</a>
-    <a href="#about" onclick="closeMobileMenu()">About</a>
-    <a href="#services" onclick="closeMobileMenu()">Services</a>
-    <a href="#contact" onclick="closeMobileMenu()">Contact</a>
   </div>
-  <section class="hero" id="home">
-    <div class="hero-bg"></div>
-    <div class="container">
-      <div class="hero-name"><span class="hero-badge"><span class="dot"></span>Available for work</span><span id="heroEditorName">Raka Adnyana</span></div>
-      <h1 id="heroHeadline">Turning ideas into <em>visual stories.</em></h1>
-      <p class="lead" id="heroDesc">I craft cinematic edits, short-form content, and motion-driven visuals for brands, creators, and storytellers.</p>
-      <div class="hero-actions">
-        <a href="#works" class="btn btn-primary">View My Work <svg viewBox="0 0 24 24"><path d="M5 12h14M13 5l7 7-7 7" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
-        <a href="#contact" class="btn btn-secondary">Contact Me</a>
-      </div>
-      <div class="hero-showreel">
-        <img id="heroShowreel" alt="Showreel" />
-        <div class="showreel-label">Showreel · 2024</div>
-        <div class="showreel-meta">
-          <button class="play-btn" onclick="scrollToWorks()"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></button>
-          <div class="showreel-info"><h4>Selected Works Showcase</h4><span id="heroShowreelMeta">Featured project</span></div>
+
+  <!-- HERO SECTION -->
+  <main>
+    <section class="hero-section" id="home">
+      <div class="hero-glow-1" aria-hidden="true"></div>
+      <div class="hero-glow-2" aria-hidden="true"></div>
+      
+      <div class="container hero-container">
+        <div class="hero-badge-row">
+          <div class="status-chip">
+            <span class="status-pulse" aria-hidden="true"></span>
+            <span>Available for projects &amp; collaborations</span>
+          </div>
+          <span class="hero-author-tag" id="heroEditorName">Raka Adnyana</span>
+        </div>
+
+        <h1 class="hero-headline" id="heroHeadline">
+          Turning ideas into <em>visual stories.</em>
+        </h1>
+
+        <p class="hero-lead" id="heroDesc">
+          I craft cinematic edits, short-form content, and motion-driven visuals for brands, creators, and storytellers.
+        </p>
+
+        <div class="hero-cta-group">
+          <a href="#works" class="cta-primary" onclick="smoothScrollTo('#works', event)">
+            <span>Explore Works</span>
+            <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7" stroke="currentColor" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+          <a href="#contact" class="cta-secondary" onclick="smoothScrollTo('#contact', event)">Get in Touch</a>
+        </div>
+
+        <!-- Featured Showreel Showcase Card -->
+        <div class="hero-showreel-card" onclick="scrollToWorks()" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' ')scrollToWorks()" aria-label="View Selected Works Showcase">
+          <div class="showreel-media-wrapper">
+            <img id="heroShowreel" alt="Video editor showreel preview" width="1280" height="640" fetchpriority="high" />
+            <div class="showreel-overlay" aria-hidden="true"></div>
+          </div>
+          <div class="showreel-top-tag">Showreel · Selected Works</div>
+          <div class="showreel-bottom-bar">
+            <div class="play-indicator" aria-hidden="true">
+              <svg viewBox="0 0 24 24" width="22" height="22"><path d="M8 5v14l11-7z" fill="currentColor"/></svg>
+            </div>
+            <div class="showreel-meta-texts">
+              <span class="showreel-label-sub" id="heroShowreelMeta">Featured project</span>
+              <h3 class="showreel-title-main">Cinematic Portfolio Reel</h3>
+            </div>
+            <div class="showreel-action-hint">
+              <span>View Collection</span>
+              <svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7" stroke="currentColor" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
-  </section>
-  <section class="section" id="works" style="padding-top:60px">
-    <div class="container">
-      <div class="works-head">
-        <div><div class="eyebrow">Selected Works</div><h2 class="section-title">Recent <em>projects</em></h2></div>
-        <div class="filters" id="filters"></div>
-      </div>
-      <div id="worksContainer" class="grid"></div>
-      <div id="emptyWorks" class="empty-state" style="display:none"><h3>No projects yet</h3><p>Projects you add in the admin dashboard will appear here.</p></div>
-    </div>
-  </section>
-  <section class="section" id="about" style="background:var(--bg-2);border-top:1px solid var(--line);border-bottom:1px solid var(--line)">
-    <div class="container">
-      <div class="about-grid">
-        <div class="about-photo" id="aboutPhotoWrapper"><img id="aboutPhoto" alt="Editor" /></div>
-        <div class="about-content">
-          <div class="eyebrow">About</div>
-          <h2 class="section-title" style="margin-bottom:24px">I'm <em id="aboutName">Raka</em>, a video editor.</h2>
-          <p class="about-lead" id="aboutDesc">I help brands and creators tell their stories through thoughtful editing, rhythm, and color.</p>
-          <div class="skills-block"><div class="skills-label">Specialization</div><div class="chips" id="specChips"></div></div>
-          <div class="skills-block"><div class="skills-label">Software</div><div class="chips" id="softChips"></div></div>
+    </section>
+
+    <!-- WORKS SECTION -->
+    <section class="section works-section" id="works">
+      <div class="container">
+        <div class="section-header-row reveal-on-scroll">
+          <div>
+            <div class="section-eyebrow">PORTFOLIO ARCHIVE</div>
+            <h2 class="section-heading" id="worksHeading">Selected <em>projects</em></h2>
+          </div>
+          <div class="filter-bar" id="filters" role="tablist" aria-label="Project Categories"></div>
+        </div>
+
+        <div id="worksContainer" class="projects-grid"></div>
+        <div id="emptyWorks" class="empty-state" style="display:none">
+          <h3>No projects yet</h3>
+          <p>Projects you publish in the admin dashboard will appear here seamlessly.</p>
         </div>
       </div>
-    </div>
-  </section>
-  <section class="section" id="services">
-    <div class="container">
-      <div class="eyebrow">Services</div>
-      <h2 class="section-title" style="margin-bottom:48px">What I <em>do</em></h2>
-      <div class="services-grid" id="servicesGrid"></div>
-    </div>
-  </section>
-  <section class="section" id="contact" style="background:var(--bg-2);border-top:1px solid var(--line)">
-    <div class="container">
-      <div class="contact-box">
-        <h2>Let's create something <em>worth watching.</em></h2>
-        <p>Available for freelance projects, collaborations, and long-term partnerships.</p>
-        <a href="#" class="btn btn-primary" id="contactPrimary" style="padding:16px 32px;font-size:15px">Contact Me <svg viewBox="0 0 24 24"><path d="M5 12h14M13 5l7 7-7 7" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
-        <div class="contact-links" id="contactLinks"></div>
+    </section>
+
+    <!-- ABOUT SECTION -->
+    <section class="section about-section" id="about">
+      <div class="container">
+        <div class="about-grid reveal-on-scroll">
+          <div class="about-visual-col">
+            <div class="about-photo-frame" id="aboutPhotoWrapper">
+              <img id="aboutPhoto" alt="Profile photo of video editor" width="600" height="750" loading="lazy" />
+              <div class="photo-accent-corner" aria-hidden="true"></div>
+            </div>
+          </div>
+          <div class="about-content-col">
+            <div class="section-eyebrow">BIOGRAPHY &amp; SKILLS</div>
+            <h2 class="section-heading" id="aboutHeading" style="margin-bottom: 24px;">I'm <em id="aboutName">Raka</em>, a video editor.</h2>
+            <p class="about-statement" id="aboutDesc">
+              I help brands and creators tell their stories through thoughtful editing, rhythm, and color.
+            </p>
+
+            <div class="skills-group" id="specSkillsGroup">
+              <h3 class="skills-group-title">SPECIALIZATIONS</h3>
+              <div class="chip-container" id="specChips"></div>
+            </div>
+
+            <div class="skills-group" id="softSkillsGroup">
+              <h3 class="skills-group-title">TOOLS &amp; SOFTWARE</h3>
+              <div class="chip-container" id="softChips"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SERVICES SECTION -->
+    <section class="section services-section" id="services">
+      <div class="container">
+        <div class="services-header reveal-on-scroll">
+          <div class="section-eyebrow">CAPABILITIES</div>
+          <h2 class="section-heading" id="servicesHeading">Services &amp; <em>expertise</em></h2>
+        </div>
+        <div class="services-grid reveal-on-scroll" id="servicesGrid"></div>
+      </div>
+    </section>
+
+    <!-- CONTACT SECTION -->
+    <section class="section contact-section" id="contact">
+      <div class="container">
+        <div class="contact-card reveal-on-scroll">
+          <div class="contact-glow" aria-hidden="true"></div>
+          <div class="contact-eyebrow">LET'S CONNECT</div>
+          <h2 class="contact-heading" id="contactHeadline">Let's create something <em>worth watching.</em></h2>
+          <p class="contact-sub">Available for freelance projects, brand commercials, short-form editing, and long-term collaborations.</p>
+          <div class="contact-actions-row">
+            <a href="#" class="cta-primary contact-main-btn" id="contactPrimary">
+              <span>Start a Project</span>
+              <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7" stroke="currentColor" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </a>
+          </div>
+          <div class="contact-social-pills" id="contactLinks"></div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="container footer-container">
+      <div class="footer-copy">
+        &copy; <span id="currentYear">2026</span> <span id="footerName">Gezenn</span>. Crafted with purpose.
+      </div>
+      <div class="footer-nav">
+        <a href="#home" onclick="smoothScrollTo('#home', event)">Home</a>
+        <a href="#works" onclick="smoothScrollTo('#works', event)">Works</a>
+        <a href="#about" onclick="smoothScrollTo('#about', event)">About</a>
+        <a href="#services" onclick="smoothScrollTo('#services', event)">Services</a>
+        <a href="#contact" onclick="smoothScrollTo('#contact', event)">Contact</a>
+        <a href="#gezenn-admin" class="footer-admin-link">Admin</a>
       </div>
     </div>
-  </section>
-  <footer><div class="footer-inner"><div>© 2024 <span id="footerName">Gezenn</span> · All rights reserved.</div><div style="display:flex;gap:20px"><a href="#works">Works</a><a href="#contact">Contact</a></div></div></footer>
+  </footer>
 </div>
 
+<!-- LOGIN VIEW -->
 <div id="loginView" class="login-view">
   <div class="login-card">
-    <div class="logo"><span class="logo-dot"></span><span>Gezenn Admin</span></div>
+    <div class="brand-logo" style="margin-bottom: 12px; justify-content: center;">
+      <span class="brand-dot"></span>
+      <span>Gezenn Admin</span>
+    </div>
     <h1>Welcome back</h1>
     <p>Sign in to manage your portfolio</p>
     <div class="login-error" id="loginError">Invalid credentials. Please try again.</div>
     <form onsubmit="handleLogin(event)">
-      <div class="field"><label>Email</label><input type="email" id="loginEmail" placeholder="Email" required></div>
-      <div class="field"><label>Password</label><input type="password" id="loginPassword" placeholder="••••••••" required></div>
-      <button type="submit" class="btn btn-primary" style="width:100%;justify-content:center;margin-top:8px">Sign In</button>
+      <div class="field">
+        <label for="loginEmail">Email</label>
+        <input type="email" id="loginEmail" placeholder="admin@example.com" required autocomplete="email">
+      </div>
+      <div class="field">
+        <label for="loginPassword">Password</label>
+        <input type="password" id="loginPassword" placeholder="••••••••" required autocomplete="current-password">
+      </div>
+      <button type="submit" class="cta-primary" style="width:100%;justify-content:center;margin-top:12px">Sign In</button>
     </form>
-    <div style="text-align:center;margin-top:16px"><a href="#" onclick="showPublic();return false" style="font-size:12px;color:var(--muted-2)">← Back to website</a></div>
+    <div style="text-align:center;margin-top:20px">
+      <a href="#" onclick="showPublic();return false" class="back-link">&larr; Back to website</a>
+    </div>
   </div>
 </div>
 
+<!-- ADMIN VIEW -->
 <div id="adminView" class="admin">
-  <nav class="admin-nav">
+  <nav class="admin-nav" aria-label="Admin Navigation">
     <div class="admin-nav-inner">
-      <a href="#" class="logo" onclick="switchAdminTab('dashboard');return false"><span class="logo-dot"></span><span>Gezenn Admin</span></a>
-      <div class="admin-tabs">
+      <a href="#" class="brand-logo" onclick="switchAdminTab('dashboard');return false">
+        <span class="brand-dot"></span>
+        <span>Gezenn Admin</span>
+      </a>
+      <div class="admin-tabs" role="tablist">
         <button class="admin-tab active" data-tab="dashboard" onclick="switchAdminTab('dashboard')">Dashboard</button>
         <button class="admin-tab" data-tab="projects" onclick="switchAdminTab('projects')">Projects</button>
         <button class="admin-tab" data-tab="settings" onclick="switchAdminTab('settings')">Settings</button>
       </div>
-      <div style="display:flex;gap:8px">
+      <div style="display:flex;gap:10px;align-items:center">
         <button class="btn-sm" onclick="showPublic()">View Site</button>
         <button class="btn-sm btn-danger" onclick="handleLogout()">Logout</button>
       </div>
     </div>
   </nav>
+
   <div class="admin-content">
+    <!-- Tab Dashboard -->
     <div id="tab-dashboard" class="admin-tab-content">
       <div class="admin-header">
-        <div><h1>Dashboard</h1><p>Overview of your portfolio and content</p></div>
-        <button class="btn btn-primary" onclick="openProjectForm()">+ Add Project <svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14" stroke-linecap="round"/></svg></button>
+        <div>
+          <h1>Dashboard</h1>
+          <p>Overview of your portfolio and content</p>
+        </div>
+        <button class="cta-primary" onclick="openProjectForm()">+ Add Project</button>
       </div>
       <div class="stats-grid">
         <div class="stat-card"><div class="lbl">Total Projects</div><div class="num" id="statProjects">0</div></div>
         <div class="stat-card"><div class="lbl">Categories</div><div class="num" id="statCats">0</div></div>
         <div class="stat-card"><div class="lbl">Featured</div><div class="num" id="statFeatured">0</div></div>
-        <div class="stat-card"><div class="lbl">Last Updated</div><div class="num sub" id="statUpdated">—</div></div>
+        <div class="stat-card"><div class="lbl">Last Updated</div><div class="num sub" id="statUpdated">-</div></div>
       </div>
-      <div class="admin-panel"><h2>Recent Projects</h2><div id="recentProjects"></div></div>
+      <div class="admin-panel">
+        <h2>Recent Projects</h2>
+        <div id="recentProjects"></div>
+      </div>
     </div>
+
+    <!-- Tab Projects -->
     <div id="tab-projects" class="admin-tab-content" style="display:none">
       <div class="admin-header">
-        <div><h1>Projects</h1><p>Manage your portfolio projects and categories</p></div>
-        <button class="btn btn-primary" onclick="openProjectForm()">+ Add Project <svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14" stroke-linecap="round"/></svg></button>
+        <div>
+          <h1>Projects</h1>
+          <p>Manage your portfolio projects and categories</p>
+        </div>
+        <button class="cta-primary" onclick="openProjectForm()">+ Add Project</button>
       </div>
       <div class="admin-panel">
         <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;flex-wrap:wrap;gap:12px">
           <h2 style="margin:0">All Projects</h2>
-          <input type="text" id="adminSearch" placeholder="Search projects..." oninput="renderAdminProjects()" style="padding:8px 14px;background:var(--bg-3);border:1px solid var(--line);border-radius:8px;color:var(--text);font-size:13px;outline:none;min-width:200px">
+          <input type="text" id="adminSearch" placeholder="Search projects..." oninput="renderAdminProjects()" class="admin-search-input">
         </div>
         <div id="adminProjectsTable"></div>
       </div>
@@ -163,72 +345,108 @@
         </div>
       </div>
     </div>
+
+    <!-- Tab Settings -->
     <div id="tab-settings" class="admin-tab-content" style="display:none">
-      <div class="admin-header"><div><h1>Website Settings</h1><p>Customize how your portfolio looks to visitors</p></div></div>
+      <div class="admin-header">
+        <div>
+          <h1>Website Settings</h1>
+          <p>Customize how your portfolio looks to visitors</p>
+        </div>
+      </div>
       <form onsubmit="saveSettings(event)" class="admin-panel">
         <h2>Identity</h2>
         <div class="form-grid">
-          <div class="field"><label>Editor Name</label><input type="text" id="setName" required></div>
-          <div class="field"><label>Logo / Brand Text</label><input type="text" id="setLogo" required></div>
+          <div class="field"><label for="setName">Editor Name</label><input type="text" id="setName" required></div>
+          <div class="field"><label for="setLogo">Logo / Brand Text</label><input type="text" id="setLogo" required></div>
           <div class="field full">
             <label>Profile Photo</label>
-            <div id="profileUploadZone" class="dropzone" onclick="document.getElementById('profileFileInput').click()">
-              <svg viewBox="0 0 24 24" style="margin:0 auto 12px;display:block"><path d="M12 16V4M12 4l-4 4M12 4l4 4M4 16v4h16v-4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <div id="profileUploadZone" class="dropzone" onclick="document.getElementById('profileFileInput').click()" role="button" tabindex="0">
+              <svg viewBox="0 0 24 24" style="margin:0 auto 12px;display:block" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 16V4M12 4l-4 4M12 4l4 4M4 16v4h16v-4" stroke-linecap="round" stroke-linejoin="round"/></svg>
               <p>Click to upload profile photo</p>
             </div>
             <input type="file" id="profileFileInput" accept="image/*" style="display:none" onchange="handleProfileUpload(event)">
             <div id="profilePreview" style="margin-top:12px"></div>
           </div>
         </div>
+
         <h2 style="margin-top:32px">Hero Section</h2>
         <div class="form-grid">
-          <div class="field full"><label>Hero Headline</label><input type="text" id="setHeadline" required><small>Use asterisks like "Turning ideas into *visual stories.*" to italicize.</small></div>
-          <div class="field full"><label>Hero Description</label><textarea id="setHeroDesc" required></textarea></div>
+          <div class="field full">
+            <label for="setHeadline">Hero Headline</label>
+            <input type="text" id="setHeadline" required>
+            <small>Use asterisks like "Turning ideas into *visual stories.*" to italicize.</small>
+          </div>
+          <div class="field full">
+            <label for="setHeroDesc">Hero Description</label>
+            <textarea id="setHeroDesc" required></textarea>
+          </div>
         </div>
+
         <h2 style="margin-top:32px">About</h2>
-        <div class="form-grid"><div class="field full"><label>About Description</label><textarea id="setAboutDesc" required></textarea></div></div>
+        <div class="form-grid">
+          <div class="field full">
+            <label for="setAboutDesc">About Description</label>
+            <textarea id="setAboutDesc" required></textarea>
+          </div>
+        </div>
+
         <h2 style="margin-top:32px">Specialization &amp; Software</h2>
         <div class="form-grid">
-          <div class="field"><label>Specialization</label><textarea id="setSpec"></textarea><small>One item per line.</small></div>
-          <div class="field"><label>Software</label><textarea id="setSoft"></textarea><small>One item per line.</small></div>
+          <div class="field">
+            <label for="setSpec">Specialization</label>
+            <textarea id="setSpec"></textarea>
+            <small>One item per line.</small>
+          </div>
+          <div class="field">
+            <label for="setSoft">Software</label>
+            <textarea id="setSoft"></textarea>
+            <small>One item per line.</small>
+          </div>
         </div>
+
         <h2 style="margin-top:32px">Services (What I do)</h2>
         <div id="servicesEditor"></div>
-        <button type="button" class="btn-sm" onclick="addServiceRow()" style="padding:10px 18px">+ Add service</button>
+        <button type="button" class="btn-sm" onclick="addServiceRow()" style="padding:10px 18px;margin-top:8px">+ Add service</button>
+
         <h2 style="margin-top:32px">Contact Links</h2>
         <div class="form-grid">
-          <div class="field"><label>WhatsApp (URL)</label><input type="text" id="setWhatsapp" placeholder="https://wa.me/62..."></div>
-          <div class="field"><label>Instagram (URL)</label><input type="text" id="setInstagram" placeholder="https://instagram.com/..."></div>
-          <div class="field"><label>Email</label><input type="email" id="setEmail" placeholder="hello@gezenn.studio"></div>
-          <div class="field"><label>TikTok (URL)</label><input type="text" id="setTiktok" placeholder="https://tiktok.com/@..."></div>
+          <div class="field"><label for="setWhatsapp">WhatsApp (URL)</label><input type="text" id="setWhatsapp" placeholder="https://wa.me/62..."></div>
+          <div class="field"><label for="setInstagram">Instagram (URL)</label><input type="text" id="setInstagram" placeholder="https://instagram.com/..."></div>
+          <div class="field"><label for="setEmail">Email</label><input type="email" id="setEmail" placeholder="hello@gezenn.studio"></div>
+          <div class="field"><label for="setTiktok">TikTok (URL)</label><input type="text" id="setTiktok" placeholder="https://tiktok.com/@..."></div>
         </div>
+
         <div style="margin-top:32px;display:flex;gap:12px">
-          <button type="submit" class="btn btn-primary">Save Changes</button>
-          <button type="button" class="btn btn-secondary" onclick="renderSettings()">Reset</button>
+          <button type="submit" class="cta-primary">Save Changes</button>
+          <button type="button" class="cta-secondary" onclick="renderSettings()">Reset</button>
         </div>
       </form>
     </div>
   </div>
 </div>
 
-<div id="projectFormModal" class="modal" onclick="if(event.target===this)closeProjectForm()">
+<!-- PROJECT FORM MODAL -->
+<div id="projectFormModal" class="modal" onclick="if(event.target===this)closeProjectForm()" role="dialog" aria-modal="true" aria-labelledby="formTitle">
   <div class="modal-inner" style="max-width:820px;position:relative">
-    <button class="modal-close" onclick="closeProjectForm()"><svg viewBox="0 0 24 24"><path d="M18 6L6 18M6 6l12 12" stroke-linecap="round"/></svg></button>
+    <button class="modal-close" onclick="closeProjectForm()" aria-label="Close project form">
+      <svg viewBox="0 0 24 24" width="20" height="20"><path d="M18 6L6 18M6 6l12 12" stroke="currentColor" fill="none" stroke-width="2" stroke-linecap="round"/></svg>
+    </button>
     <div style="padding:clamp(28px,4vw,40px)">
       <h2 id="formTitle" style="font-size:24px;font-weight:600;letter-spacing:-0.02em;margin-bottom:24px">Add New Project</h2>
       <form onsubmit="saveProject(event)" id="projectForm">
         <input type="hidden" id="formProjectId">
         <div class="form-grid">
-          <div class="field full"><label>Project Title *</label><input type="text" id="formTitleInput" required placeholder="e.g. Neon Nights Brand Film"></div>
-          <div class="field full"><label>Description *</label><textarea id="formDesc" required placeholder="Describe the project, your role, and outcome..."></textarea></div>
-          <div class="field"><label>Category *</label><select id="formCategory" required></select></div>
-          <div class="field"><label>Year *</label><input type="number" id="formYear" min="2000" max="2100" required></div>
-          <div class="field full"><label>Video URL (optional)</label><input type="text" id="formVideo" placeholder="https://youtube.com/watch?v=..."><small>YouTube or Vimeo embed link.</small></div>
+          <div class="field full"><label for="formTitleInput">Project Title *</label><input type="text" id="formTitleInput" required placeholder="e.g. Neon Nights Brand Film"></div>
+          <div class="field full"><label for="formDesc">Description *</label><textarea id="formDesc" required placeholder="Describe the project, your role, and outcome..."></textarea></div>
+          <div class="field"><label for="formCategory">Category *</label><select id="formCategory" required></select></div>
+          <div class="field"><label for="formYear">Year *</label><input type="number" id="formYear" min="2000" max="2100" required></div>
+          <div class="field full"><label for="formVideo">Video URL (optional)</label><input type="text" id="formVideo" placeholder="https://youtube.com/watch?v=..."><small>YouTube or Vimeo embed link.</small></div>
           <div class="field full">
             <label>Cover Image *</label>
-            <div id="coverUploadZone" class="dropzone" onclick="document.getElementById('coverFileInput').click()">
-              <svg viewBox="0 0 24 24" style="margin:0 auto 12px;display:block"><path d="M12 16V4M12 4l-4 4M12 4l4 4M4 16v4h16v-4" stroke-linecap="round" stroke-linejoin="round"/></svg>
-              <p><strong>Click to upload</strong> or drag & drop</p>
+            <div id="coverUploadZone" class="dropzone" onclick="document.getElementById('coverFileInput').click()" role="button" tabindex="0">
+              <svg viewBox="0 0 24 24" style="margin:0 auto 12px;display:block" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 16V4M12 4l-4 4M12 4l4 4M4 16v4h16v-4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              <p><strong>Click to upload</strong> or drag &amp; drop</p>
               <p style="margin-top:4px;font-size:11px">JPG, PNG, WebP · max 5MB</p>
             </div>
             <input type="file" id="coverFileInput" accept="image/jpeg,image/png,image/webp" style="display:none" onchange="handleCoverUpload(event)">
@@ -236,9 +454,9 @@
           </div>
           <div class="field full">
             <label>Gallery Images (optional)</label>
-            <div id="galleryUploadZone" class="dropzone" onclick="document.getElementById('galleryFileInput').click()">
-              <svg viewBox="0 0 24 24" style="margin:0 auto 12px;display:block"><path d="M12 16V4M12 4l-4 4M12 4l4 4M4 16v4h16v-4" stroke-linecap="round" stroke-linejoin="round"/></svg>
-              <p><strong>Click to upload</strong> or drag & drop</p>
+            <div id="galleryUploadZone" class="dropzone" onclick="document.getElementById('galleryFileInput').click()" role="button" tabindex="0">
+              <svg viewBox="0 0 24 24" style="margin:0 auto 12px;display:block" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 16V4M12 4l-4 4M12 4l4 4M4 16v4h16v-4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              <p><strong>Click to upload</strong> or drag &amp; drop</p>
               <p style="margin-top:4px;font-size:11px">Multiple files supported</p>
             </div>
             <input type="file" id="galleryFileInput" accept="image/jpeg,image/png,image/webp" multiple style="display:none" onchange="handleGalleryUpload(event)">
@@ -250,18 +468,25 @@
           </div>
         </div>
         <div style="margin-top:24px;display:flex;gap:12px;justify-content:flex-end">
-          <button type="button" class="btn btn-secondary" onclick="closeProjectForm()">Cancel</button>
-          <button type="submit" class="btn btn-primary">Save Project</button>
+          <button type="button" class="cta-secondary" onclick="closeProjectForm()">Cancel</button>
+          <button type="submit" class="cta-primary">Save Project</button>
         </div>
       </form>
     </div>
   </div>
 </div>
 
-<div id="projectModal" class="modal" onclick="if(event.target===this)closeProjectModal()">
-  <div class="modal-inner"><button class="modal-close" onclick="closeProjectModal()"><svg viewBox="0 0 24 24"><path d="M18 6L6 18M6 6l12 12" stroke-linecap="round"/></svg></button><div id="projectModalBody"></div></div>
+<!-- PROJECT DETAIL MODAL -->
+<div id="projectModal" class="modal" onclick="if(event.target===this)closeProjectModal()" role="dialog" aria-modal="true" aria-label="Project Details">
+  <div class="modal-inner">
+    <button class="modal-close" onclick="closeProjectModal()" aria-label="Close project modal">
+      <svg viewBox="0 0 24 24" width="20" height="20"><path d="M18 6L6 18M6 6l12 12" stroke="currentColor" fill="none" stroke-width="2" stroke-linecap="round"/></svg>
+    </button>
+    <div id="projectModalBody"></div>
+  </div>
 </div>
 
+<!-- SCRIPTS -->
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script>
 <script src="app.js"></script>
 </body>
