@@ -1,0 +1,196 @@
+/* ==========================================================================
+   PRELOADER / INTRO SCREEN
+   Adapted from RyHarJr/portofoliov2 PageLoader to match Gezenn dark theme
+   ========================================================================== */
+
+/* Prevent flash of underlying portfolio before React mounts */
+html.preloader-pending {
+  scrollbar-gutter: stable;
+}
+
+html.preloader-pending body,
+body.preloader-active {
+  overflow: hidden;
+  scrollbar-gutter: stable;
+}
+
+html.preloader-pending #publicView {
+  visibility: hidden;
+}
+
+html.preloader-pending .nav-container,
+html.preloader-pending .hero-badge-row,
+html.preloader-pending .hero-lead,
+html.preloader-pending .hero-cta-group,
+html.preloader-pending .hero-showreel-card,
+body.preloader-active .nav-container,
+body.preloader-active .hero-badge-row,
+body.preloader-active .hero-lead,
+body.preloader-active .hero-cta-group,
+body.preloader-active .hero-showreel-card {
+  animation: none !important;
+  opacity: 0;
+}
+
+html.preloader-pending .intro-hero-section,
+body.preloader-active .intro-hero-section {
+  opacity: 0;
+}
+
+.preloader-screen {
+  position: fixed;
+  inset: 0;
+  z-index: 20000;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background-color: var(--bg, #07080a);
+  color: var(--text, #f5f5f7);
+  overflow: hidden;
+  user-select: none;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Soft centered ambient blur orb matching site palette */
+.preloader-orb {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 288px;
+  height: 288px;
+  transform: translate(-50%, -50%);
+  border-radius: 9999px;
+  background: radial-gradient(
+    circle,
+    rgba(212, 255, 79, 0.14) 0%,
+    rgba(245, 245, 247, 0.06) 45%,
+    transparent 75%
+  );
+  filter: blur(85px);
+  pointer-events: none;
+}
+
+/* Brand title mask container */
+.preloader-brand-wrap {
+  position: relative;
+  z-index: 1;
+  overflow: hidden;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.preloader-brand-title {
+  font-family: var(--font-display, 'Space Grotesk', 'Inter', sans-serif);
+  font-size: clamp(36px, 5vw, 48px);
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.04em;
+  color: var(--text, #f5f5f7);
+}
+
+.preloader-brand-dot-char {
+  color: var(--accent, #d4ff4f);
+}
+
+/* Subtitle mask container */
+.preloader-subtitle-wrap {
+  position: relative;
+  z-index: 1;
+  overflow: hidden;
+  height: 32px;
+  margin-top: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.preloader-subtitle {
+  font-family: var(--font, 'Inter', sans-serif);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--muted, #a1a1aa);
+  padding-left: 0.3em; /* compensate trailing letter-spacing for true center */
+}
+
+/* Horizontal sliding progress track */
+.preloader-progress-track {
+  position: relative;
+  z-index: 1;
+  margin-top: 32px;
+  width: min(256px, 68vw);
+  height: 2px;
+  border-radius: 9999px;
+  background: rgba(161, 161, 170, 0.2);
+  overflow: hidden;
+}
+
+.preloader-progress-fill {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  border-radius: 9999px;
+  background: linear-gradient(90deg, var(--accent, #d4ff4f), var(--text, #f5f5f7));
+}
+
+/* Subtle bottom-right Skip control */
+.preloader-skip {
+  position: fixed;
+  right: clamp(16px, 3vw, 36px);
+  bottom: clamp(16px, 3vw, 32px);
+  z-index: 2;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  min-width: 44px;
+  padding: 0 18px;
+  border-radius: 9999px;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  background: rgba(14, 16, 23, 0.78);
+  color: #d4d4d8;
+  font-family: var(--font, 'Inter', sans-serif);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: color 0.22s ease, border-color 0.22s ease, background-color 0.22s ease;
+}
+
+.preloader-skip:hover {
+  color: var(--text, #f5f5f7);
+  border-color: var(--accent, #d4ff4f);
+  background: rgba(21, 23, 34, 0.9);
+}
+
+.preloader-skip:active {
+  transform: scale(0.97);
+}
+
+.preloader-skip:focus-visible {
+  outline: 2px solid var(--accent, #d4ff4f);
+  outline-offset: 3px;
+}
+
+@media (max-width: 480px) {
+  .preloader-skip {
+    left: 0;
+    right: 0;
+    width: fit-content;
+    margin-inline: auto;
+    bottom: 20px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .preloader-skip {
+    transition: none;
+  }
+}

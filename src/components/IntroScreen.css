@@ -1,0 +1,378 @@
+/* ==========================================================================
+   INTRO HERO SECTION - EDITORIAL FILM TITLE COMPOSITION
+   Permanent homepage hero (not an overlay)
+   ========================================================================== */
+
+/* Hero section: full viewport, centered composition, seamless match with site --bg */
+.intro-hero-section {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: clamp(20px, 5vw, 64px);
+  background-color: var(--bg, #07080a);
+  color: #ede8dc;
+  overflow: hidden;
+  user-select: none;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  /* Smooth entrance after preloader */
+  opacity: 0;
+  transition: opacity 0.85s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Show the hero section once preloader is done */
+body.page-loaded .intro-hero-section,
+body:not(.preloader-active) .intro-hero-section {
+  opacity: 1;
+}
+
+/* Soft ambient atmospheric depth matching site glow palette without edge seam */
+.intro-backdrop-vignette {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(
+      ellipse 55% 45% at 72% 28%,
+      rgba(212, 255, 79, 0.032) 0%,
+      transparent 70%
+    ),
+    radial-gradient(
+      ellipse 55% 48% at 24% 72%,
+      rgba(107, 197, 248, 0.028) 0%,
+      transparent 72%
+    ),
+    radial-gradient(
+      ellipse 72% 62% at 50% 48%,
+      rgba(22, 24, 32, 0.34) 0%,
+      rgba(7, 8, 10, 0) 78%
+    );
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Tactile analog film grain fading gently at bottom edge */
+.intro-grain {
+  position: absolute;
+  inset: -12%;
+  width: 124%;
+  height: 124%;
+  pointer-events: none;
+  z-index: 4;
+  opacity: 0.09;
+  mix-blend-mode: soft-light;
+  -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 72%, transparent 96%);
+  mask-image: linear-gradient(to bottom, #000 0%, #000 72%, transparent 96%);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200' viewBox='0 0 200 200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.92' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+}
+
+/* Center composition wrapper */
+.intro-composition {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  max-width: 100%;
+}
+
+/*
+  All coordinates inside .intro-word-stage scale in `em` relative to --intro-title-size
+  so the overlapping halftone capsules, 2026 pill, and VIDEO EDITOR label preserve
+  their exact editorial relationship across mobile, tablet, and desktop.
+*/
+.intro-word-stage {
+  --intro-title-size: clamp(38px, 11.4vw, 162px);
+  --halftone-step: clamp(4px, 0.48vw, 6.8px);
+  position: relative;
+  display: inline-block;
+  font-size: var(--intro-title-size);
+  line-height: 0.86;
+  margin-top: clamp(28px, 3.6vw, 48px);
+  margin-bottom: clamp(28px, 3.6vw, 48px);
+}
+
+/* Top-left cluster */
+.intro-year-cluster {
+  position: absolute;
+  left: 0.22em;
+  bottom: calc(100% + clamp(10px, 1.3vw, 20px));
+  display: inline-flex;
+  align-items: center;
+  gap: clamp(6px, 0.75vw, 11px);
+  z-index: 3;
+}
+
+.intro-ring-dot {
+  width: clamp(16px, 1.85vw, 27px);
+  height: clamp(16px, 1.85vw, 27px);
+  border-radius: 9999px;
+  border: 1px solid rgba(237, 232, 220, 0.72);
+  flex-shrink: 0;
+}
+
+.intro-year-pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: clamp(20px, 2.05vw, 30px);
+  padding: 0 clamp(14px, 1.75vw, 28px);
+  border-radius: 9999px;
+  border: 1px solid rgba(237, 232, 220, 0.72);
+  background: rgba(14, 14, 15, 0.45);
+  color: #ede8dc;
+  font-family: 'Bodoni Moda', 'Instrument Serif', Georgia, serif;
+  font-style: italic;
+  font-weight: 400;
+  font-size: clamp(12px, 1.25vw, 18px);
+  line-height: 1;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+}
+
+/* Main "PORTFOLIO" serif typography */
+.intro-title-clip {
+  position: relative;
+  z-index: 1;
+  overflow: visible;
+}
+
+.intro-title {
+  margin: 0;
+  font-family: 'Bodoni Moda', 'Instrument Serif', Georgia, serif;
+  font-weight: 700;
+  font-size: 1em;
+  line-height: 0.86;
+  letter-spacing: -0.02em;
+  color: #ede8dc;
+  text-transform: uppercase;
+  white-space: nowrap;
+  font-optical-sizing: auto;
+}
+
+/* Floating rounded halftone lens shapes */
+.intro-lens {
+  position: absolute;
+  border-radius: 9999px;
+  overflow: hidden;
+  z-index: 2;
+  pointer-events: none;
+  background: linear-gradient(
+    165deg,
+    rgba(22, 24, 33, 0.72) 0%,
+    rgba(7, 8, 10, 0.90) 60%,
+    rgba(14, 16, 23, 0.84) 100%
+  );
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  box-shadow:
+    0 22px 46px rgba(0, 0, 0, 0.82),
+    0 6px 16px rgba(0, 0, 0, 0.55);
+}
+
+.intro-lens::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  border: 1px solid rgba(237, 232, 220, 0.24);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 250, 240, 0.16),
+    inset 0 -10px 22px rgba(0, 0, 0, 0.55);
+  pointer-events: none;
+  z-index: 3;
+}
+
+.intro-lens-sheen {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    ellipse 80% 75% at 52% 45%,
+    rgba(237, 232, 220, 0.085) 0%,
+    rgba(237, 232, 220, 0.02) 48%,
+    transparent 76%
+  );
+  pointer-events: none;
+  z-index: 2;
+}
+
+.intro-lens--left {
+  left: -0.64em;
+  top: 0.37em;
+  width: 3.68em;
+  height: 0.56em;
+}
+
+.intro-lens--right {
+  left: 3.48em;
+  top: -0.1em;
+  width: 2.86em;
+  height: 0.54em;
+}
+
+.intro-lens-text-anchor {
+  position: absolute;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.intro-lens--left .intro-lens-text-anchor {
+  left: 0.64em;
+  top: -0.37em;
+}
+
+.intro-lens--right .intro-lens-text-anchor {
+  left: -3.48em;
+  top: 0.1em;
+}
+
+.intro-halftone-stack {
+  position: relative;
+}
+
+.intro-title--bloom {
+  position: absolute;
+  inset: 0;
+  color: rgba(237, 232, 220, 0.58);
+  filter: blur(5.5px);
+  -webkit-mask-image:
+    radial-gradient(circle at center, #000 34%, transparent 74%),
+    radial-gradient(circle at center, #000 34%, transparent 74%);
+  mask-image:
+    radial-gradient(circle at center, #000 34%, transparent 74%),
+    radial-gradient(circle at center, #000 34%, transparent 74%);
+  -webkit-mask-size: var(--halftone-step) var(--halftone-step);
+  mask-size: var(--halftone-step) var(--halftone-step);
+  -webkit-mask-position: 0 0, calc(var(--halftone-step) * 0.5) calc(var(--halftone-step) * 0.5);
+  mask-position: 0 0, calc(var(--halftone-step) * 0.5) calc(var(--halftone-step) * 0.5);
+}
+
+.intro-title--halftone {
+  color: #f3eee3;
+  opacity: 0.94;
+  filter: blur(0.45px);
+  text-shadow: 0 0 14px rgba(237, 232, 220, 0.35);
+  -webkit-mask-image:
+    radial-gradient(circle at center, #000 35%, rgba(0, 0, 0, 0.48) 54%, transparent 70%),
+    radial-gradient(circle at center, #000 35%, rgba(0, 0, 0, 0.48) 54%, transparent 70%);
+  mask-image:
+    radial-gradient(circle at center, #000 35%, rgba(0, 0, 0, 0.48) 54%, transparent 70%),
+    radial-gradient(circle at center, #000 35%, rgba(0, 0, 0, 0.48) 54%, transparent 70%);
+  -webkit-mask-size: var(--halftone-step) var(--halftone-step);
+  mask-size: var(--halftone-step) var(--halftone-step);
+  -webkit-mask-position: 0 0, calc(var(--halftone-step) * 0.5) calc(var(--halftone-step) * 0.5);
+  mask-position: 0 0, calc(var(--halftone-step) * 0.5) calc(var(--halftone-step) * 0.5);
+}
+
+/* Bottom-right cluster */
+.intro-role-cluster {
+  position: absolute;
+  right: 0.25em;
+  top: calc(100% + clamp(10px, 1.3vw, 20px));
+  display: inline-flex;
+  align-items: center;
+  gap: clamp(6px, 0.75vw, 11px);
+  z-index: 3;
+}
+
+.intro-solid-dot {
+  width: clamp(16px, 1.85vw, 27px);
+  height: clamp(16px, 1.85vw, 27px);
+  border-radius: 9999px;
+  background-color: #ede8dc;
+  flex-shrink: 0;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.45);
+}
+
+.intro-role-pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: clamp(22px, 2.05vw, 30px);
+  padding: 0 clamp(14px, 1.7vw, 26px);
+  border-radius: 9999px;
+  background-color: #ede8dc;
+  color: #111112;
+  font-family: 'Bodoni Moda', 'Instrument Serif', Georgia, serif;
+  font-style: italic;
+  font-weight: 600;
+  font-size: clamp(11px, 1.08vw, 15px);
+  line-height: 1;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.45);
+}
+
+/* Scroll down indicator */
+.intro-hero-scroll-cue {
+  position: absolute;
+  bottom: clamp(20px, 3.6vw, 40px);
+  left: 0;
+  right: 0;
+  margin-inline: auto;
+  z-index: 3;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 9999px;
+  color: #ede8dc;
+  transition: color 0.25s ease;
+}
+
+.intro-hero-scroll-cue:hover {
+  color: #d4ff4f;
+}
+
+.intro-hero-scroll-cue:focus-visible {
+  outline: 2px solid #d4ff4f;
+  outline-offset: 2px;
+}
+
+.intro-hero-scroll-line {
+  animation: intro-scroll-bob 1.8s ease-in-out infinite;
+}
+
+@keyframes intro-scroll-bob {
+  0%, 100% { transform: translateY(0); opacity: 1; }
+  50% { transform: translateY(4px); opacity: 0.35; }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .intro-word-stage {
+    --intro-title-size: clamp(34px, 12.2vw, 84px);
+    --halftone-step: 4px;
+  }
+}
+
+@media (max-width: 480px) {
+  .intro-word-stage {
+    --intro-title-size: clamp(32px, 11.4vw, 52px);
+    --halftone-step: 3.8px;
+  }
+
+  .intro-year-cluster {
+    left: 0;
+  }
+
+  .intro-role-cluster {
+    right: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .intro-hero-section,
+  .intro-hero-scroll-cue {
+    transition: none;
+  }
+  .intro-hero-scroll-line {
+    animation: none;
+  }
+}

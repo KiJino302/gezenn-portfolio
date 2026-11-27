@@ -860,7 +860,8 @@ img {
   color: var(--text);
 }
 
-.hero-headline em {
+.hero-headline em,
+.hero-headline .is-accent {
   font-family: var(--serif);
   font-style: italic;
   font-weight: 400;

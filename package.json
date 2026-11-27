@@ -1,0 +1,22 @@
+{
+  "name": "gezenn-portfolio",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Gezenn Video Editor Portfolio with animated Framer Motion / Motion intro screen",
+  "scripts": {
+    "build:intro": "esbuild src/intro-entry.tsx --bundle --format=iife --minify --outfile=intro-screen.js --define:process.env.NODE_ENV=\\\"production\\\"",
+    "watch:intro": "esbuild src/intro-entry.tsx --bundle --format=iife --watch --outfile=intro-screen.js --define:process.env.NODE_ENV=\\\"development\\\"",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "motion": "^14.14.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
+  },
+  "devDependencies": {
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
+    "esbuild": "^0.25.0",
+    "typescript": "^5.7.0"
+  }
+}

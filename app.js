@@ -434,10 +434,18 @@ async function init() {
   setupScrollTracking();
   setupScrollAnimations();
 
-  // Trigger page-loaded for hero choreography
-  requestAnimationFrame(() => {
-    document.body.classList.add('page-loaded');
-  });
+  // Trigger page-loaded for hero choreography once any active intro exits
+  state.initialized = true;
+  const triggerHeroLoaded = () => {
+    if (!state.initialized) return;
+    requestAnimationFrame(() => {
+      document.body.classList.add('page-loaded');
+    });
+  };
+  window.__finishPortfolioIntro = triggerHeroLoaded;
+  if (!window.__GEZENN_PRELOADER_ACTIVE__) {
+    triggerHeroLoaded();
+  }
 
   window.addEventListener('hashchange', route);
   await route();
@@ -459,7 +467,11 @@ async function applySettings() {
   const s = state.settings;
 
   // Headings with word-by-word reveal
-  splitHeadlineWords(document.getElementById('heroHeadline'), s.headline.replace(/\*(.+?)\*/g, '<em>$1</em>'), 220);
+  if (typeof window.__setHeroHeadline === 'function') {
+    window.__setHeroHeadline(s.headline);
+  } else {
+    splitHeadlineWords(document.getElementById('heroHeadline'), s.headline.replace(/\*(.+?)\*/g, '<em>$1</em>'), 220);
+  }
   splitHeadlineWords(document.getElementById('worksHeading'), 'Selected <em>projects</em>', 100);
   splitHeadlineWords(document.getElementById('aboutHeading'), `I'm <em id="aboutName">${escapeHtml(s.name.split(' ')[0])}</em>, a video editor.`, 100);
   splitHeadlineWords(document.getElementById('servicesHeading'), 'Services &amp; <em>expertise</em>', 100);
